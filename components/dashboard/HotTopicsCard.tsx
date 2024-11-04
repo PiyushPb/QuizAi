@@ -10,9 +10,7 @@ import {
 } from "@/components/ui/card";
 import WordCloud from "../WordCloud";
 
-type Props = {};
-
-const HotTopicsCard = (props: Props) => {
+const HotTopicsCard = (props: any) => {
   const [topics, setTopics] = useState([]);
 
   useEffect(() => {
