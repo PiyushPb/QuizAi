@@ -17,7 +17,7 @@ export default function DynamicQuizPage() {
     const fetchQuizData = async () => {
       try {
         const response = await fetch(`/api/quiz?quizId=${quizId}`);
-        if (!response.ok) {
+        if (!response.status) {
           throw new Error("Quiz not found");
         }
         const data = await response.json();
@@ -45,8 +45,8 @@ export default function DynamicQuizPage() {
       <div className="container mx-auto px-3 py-5 w-full h-[90vh] flex flex-col justify-center items-center">
         <p className="font-semibold text-[20px]">Quiz not found</p>
         <p>
-          The quiz you are looking for does not found or have been deleted, please check the
-          url or make your own <Link href={"/quiz"}>quiz</Link>
+          The quiz you are looking for does not found or have been deleted,
+          please check the url or make your own <Link href={"/quiz"}>quiz</Link>
         </p>
       </div>
     );
