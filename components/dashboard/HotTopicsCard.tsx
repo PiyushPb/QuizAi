@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -10,19 +12,23 @@ import WordCloud from "../WordCloud";
 
 type Props = {};
 
-const HotTopicsCard = async (props: Props) => {
-  const topics = [
-    { topic: "React", count: 1 },
-    { topic: "JavaScript", count: 2 },
-    { topic: "CSS", count: 3 },
-    { topic: "TypeScript", count: 1 },
-    { topic: "Node.js", count: 1 },
-  ];
+const HotTopicsCard = (props: Props) => {
+  const [topics, setTopics] = useState([]);
+
+  useEffect(() => {
+    const fetchTopics = async () => {
+      const response = await fetch("/api/topic");
+      const data = await response.json();
+      setTopics(data.topics);
+    };
+
+    fetchTopics(); // Call the function here
+  }, []);
 
   const formattedTopics = topics.map((topic) => {
     return {
       text: topic.topic,
-      value: topic.count,
+      value: topic.count * Math.floor(Math.random() * 100),
     };
   });
 

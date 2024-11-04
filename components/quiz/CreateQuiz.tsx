@@ -18,8 +18,26 @@ export default function CreateQuiz({ topic, noOfQuestions }) {
         setLoadingPercentage(0);
         setLoadingMessage("Generating Quiz...");
 
+        const topicResponse = await fetch("/api/topic", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            topic,
+          }),
+        });
 
-        setLoadingPercentage(12);
+        const topicData = await topicResponse.json();
+
+        if (!topicData.status) {
+          toast.error(topicData.message);
+          return;
+        }
+
+        setLoadingPercentage(10);
+
+        setLoadingPercentage(22);
         const response = await fetch("/api/generateQuiz", {
           method: "POST",
           headers: {
@@ -32,7 +50,7 @@ export default function CreateQuiz({ topic, noOfQuestions }) {
         });
 
         const data = await response.json();
-        setLoadingPercentage(32);
+        setLoadingPercentage(42);
 
         const payloadString = data.payload.replace(/```json|```/g, "").trim();
         const quizData = JSON.parse(payloadString);
@@ -53,7 +71,7 @@ export default function CreateQuiz({ topic, noOfQuestions }) {
           }),
         });
 
-        setLoadingPercentage(82);
+        setLoadingPercentage(86);
         const uploadData = await uploadResponse.json();
 
         setLoadingPercentage(100);

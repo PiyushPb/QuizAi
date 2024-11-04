@@ -8,14 +8,14 @@ type Props = {
 };
 
 const fontSizeMapper = (word: { value: number }) =>
-  Math.log2(word.value) * 5 + 20;
+  Math.log2(word.value) * 5 + 10;
 
 const WordCloud = ({ formattedTopics }: Props) => {
   return (
     <>
       <D3WordCloud
         data={formattedTopics}
-        height={550}
+        height={450}
         font="Times"
         fontSize={fontSizeMapper}
         rotate={0}
