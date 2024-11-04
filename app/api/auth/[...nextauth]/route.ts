@@ -1,10 +1,10 @@
 import NextAuth from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
-import clientPromise from "@/lib/mongodb"; // Import the MongoDB client
+import clientPromise from "@/lib/mongodb";
 
 const authOptions = {
-  adapter: MongoDBAdapter(clientPromise), // Set the MongoDB Adapter here
+  adapter: MongoDBAdapter(clientPromise),
   providers: [
     GitHubProvider({
       clientId: process.env.GITHUB_CLIENT_ID,
@@ -18,8 +18,8 @@ const authOptions = {
     secret: process.env.NEXTAUTH_SECRET,
   },
   callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
+    async jwt({ token, user, account }) {
+      if (account && user) {
         token.sub = user.id;
       }
       return token;

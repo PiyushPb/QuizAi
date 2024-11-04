@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,11 +11,40 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
-import { useState } from "react";
+import { toast } from "sonner";
 
-const CreateQuizForm = ({ handleSubmit }) => {
-  const [topic, setTopic] = useState("");
-  const [noOfQuestions, setNoOfQuestions] = useState(1);
+const CreateQuizForm = ({
+  topic,
+  setTopic,
+  noOfQuestions,
+  setNoOfQuestions,
+  setActiveTab,
+}) => {
+  const handleSubmit = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+
+    // Validation
+    if (!topic.trim()) {
+      toast("Please provide a topic for the quiz.");
+      return;
+    }
+
+    const numQuestions = Number(noOfQuestions);
+    if (numQuestions < 3 || numQuestions > 20) {
+      toast("Please enter a number of questions between 3 and 20.");
+      return;
+    }
+
+    // Proceed with quiz creation logic here
+    console.log(
+      "Creating quiz with topic:",
+      topic,
+      "and number of questions:",
+      noOfQuestions
+    );
+
+    setActiveTab(1);
+  };
 
   return (
     <div className="max-w-[500px] w-full">
@@ -26,7 +56,7 @@ const CreateQuizForm = ({ handleSubmit }) => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="grid gap-4">
+          <form className="grid gap-4" onSubmit={handleSubmit}>
             <div className="grid w-full items-center gap-1.5">
               <Label htmlFor="topic">Topic</Label>
               <Input
@@ -47,20 +77,16 @@ const CreateQuizForm = ({ handleSubmit }) => {
                 id="noOfQuestions"
                 placeholder="Number of questions"
                 min={1}
-                max={10}
+                max={20}
                 value={noOfQuestions}
-                onChange={(e) =>
-                  setNoOfQuestions(e.target.value as unknown as number)
-                }
+                onChange={(e) => setNoOfQuestions(Number(e.target.value))}
               />
               <span className="text-[12px] text-gray-500">
-                Please enter the number of questions you would like to be asked.
+                Please enter the number of questions you would like to be asked
+                (3-20).
               </span>
             </div>
-            <Button
-              className="mt-5"
-              type="submit"
-            >
+            <Button className="mt-5" type="submit">
               Start Quiz
             </Button>
           </form>

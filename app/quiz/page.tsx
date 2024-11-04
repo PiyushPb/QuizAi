@@ -1,38 +1,32 @@
-import CreateQuiz from "@/components/quiz/CreateQuiz";
-import CreateQuizForm from "@/components/quiz/CreateQuizForm";
+"use client";
 
-export const metadata = {
-  title: "Quiz | QuizAi",
-  description: "Quiz creation",
-};
+import CreateQuizForm from "@/components/quiz/CreateQuizForm";
+import CreateQuiz from "@/components/quiz/CreateQuiz";
+import { useEffect, useState } from "react";
 
 export default function StartQuizPage() {
-  const handleSubmit = async (
-    e: React.SyntheticEvent,
-    topic,
-    noOfQuestions
-  ) => {
-    e.preventDefault();
-    try {
-      const response = await fetch("/api/generateQuiz", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ topic, noOfQuestions }),
-      });
+  useEffect(() => {
+    document.title = "Quiz | QuizAI";
+  }, []);
 
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const [activeTab, setActiveTab] = useState(0);
+  const [topic, setTopic] = useState("");
+  const [noOfQuestions, setNoOfQuestions] = useState(1);
 
   return (
     <div className="container mx-auto px-3 py-5 w-full h-[90vh] flex justify-center items-center">
-      <CreateQuizForm handleSubmit={handleSubmit} />
-      {/* <CreateQuiz /> */}
+      {activeTab === 0 && (
+        <CreateQuizForm
+          {...{
+            topic,
+            setTopic,
+            noOfQuestions,
+            setNoOfQuestions,
+            setActiveTab,
+          }}
+        />
+      )}
+      {activeTab === 1 && <CreateQuiz {...{ topic, noOfQuestions }} />}
     </div>
   );
 }

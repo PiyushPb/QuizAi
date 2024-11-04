@@ -12,7 +12,7 @@ export default function StartQuizCard() {
             <LuBrainCircuit />
           </div>
           <CardDescription>
-            Challange yourself to a quiz with a topic of your choice.
+            Challenge yourself to a quiz with a topic of your choice.
           </CardDescription>
         </CardHeader>
       </Card>

@@ -11,13 +11,12 @@ import WordCloud from "../WordCloud";
 type Props = {};
 
 const HotTopicsCard = async (props: Props) => {
-  // Dummy data
   const topics = [
-    { topic: "React", count: 120 },
-    { topic: "JavaScript", count: 95 },
-    { topic: "CSS", count: 75 },
-    { topic: "TypeScript", count: 50 },
-    { topic: "Node.js", count: 45 },
+    { topic: "React", count: 1 },
+    { topic: "JavaScript", count: 2 },
+    { topic: "CSS", count: 3 },
+    { topic: "TypeScript", count: 1 },
+    { topic: "Node.js", count: 1 },
   ];
 
   const formattedTopics = topics.map((topic) => {
