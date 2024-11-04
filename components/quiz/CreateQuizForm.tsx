@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react"; // Import useEffect
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,7 +20,14 @@ const CreateQuizForm = ({
   noOfQuestions,
   setNoOfQuestions,
   setActiveTab,
+  quizValue,
 }) => {
+  useEffect(() => {
+    if (quizValue) {
+      setTopic(quizValue); // Set the topic from quizValue if it's not empty
+    }
+  }, [quizValue, setTopic]); // Ensure setTopic is stable in the dependency array
+
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
