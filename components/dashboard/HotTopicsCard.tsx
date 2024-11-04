@@ -22,7 +22,7 @@ const HotTopicsCard = (props: Props) => {
       setTopics(data.topics);
     };
 
-    fetchTopics(); // Call the function here
+    fetchTopics();
   }, []);
 
   const formattedTopics = topics.map((topic) => {

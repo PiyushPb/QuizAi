@@ -4,6 +4,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import StartQuizCard from "@/components/dashboard/StartQuizCard";
 import HistoryCard from "@/components/dashboard/HistoryCard";
 import HotTopicsCard from "@/components/dashboard/HotTopicsCard";
+import RecentActivity from "@/components/dashboard/RecentActivity";
 
 export const metadata = {
   title: "Dashboard | QuizAi",
@@ -27,6 +28,7 @@ export default async function Dashboard() {
       </div>
       <div className="mt-5 grid gap-4 md:grid-cols-2 lg:grid-cols-7">
         <HotTopicsCard />
+        <RecentActivity />
       </div>
     </div>
   );

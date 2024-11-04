@@ -58,6 +58,7 @@ export default function QuizDashboard({ quizData }: any) {
           totalQuestions: quizData?.quiz.questions.length,
           numberOfCorrectAnswers: numberOfCurrentAnswers,
           timestamp: new Date().toISOString(),
+          topic: quizData?.quiz.topic,
         };
 
         console.log(completedQuizData);
