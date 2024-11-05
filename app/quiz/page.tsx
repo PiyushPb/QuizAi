@@ -1,37 +1,20 @@
-"use client";
+import StartQuizPage from "@/components/quiz/StartQuizPage";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { redirect } from "next/navigation";
 
-import CreateQuizForm from "@/components/quiz/CreateQuizForm";
-import CreateQuiz from "@/components/quiz/CreateQuiz";
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+export const metadata = {
+  title: "Quiz | QuizAI",
+  description: "Quiz yourself on anything!",
+};
 
-export default function StartQuizPage() {
-  useEffect(() => {
-    document.title = "Quiz | QuizAI";
-  }, []);
+export default async function QuizPage() {
+  const session = await getServerSession(authOptions);
 
-  const [activeTab, setActiveTab] = useState(0);
-  const [topic, setTopic] = useState("");
-  const [noOfQuestions, setNoOfQuestions] = useState(1);
+  if (!session) {
+    redirect("/signup");
+    return null;
+  }
 
-  const { quiz } = useParams();
-  const quizValue = quiz || null;
-
-  return (
-    <div className="container mx-auto px-3 py-5 w-full h-[90vh] flex justify-center items-center">
-      {activeTab === 0 && (
-        <CreateQuizForm
-          {...{
-            topic,
-            setTopic,
-            noOfQuestions,
-            setNoOfQuestions,
-            setActiveTab,
-            quizValue,
-          }}
-        />
-      )}
-      {activeTab === 1 && <CreateQuiz {...{ topic, noOfQuestions }} />}
-    </div>
-  );
+  return <StartQuizPage />;
 }

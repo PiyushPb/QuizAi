@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default function Navbar() {
   const { data: session } = useSession();
@@ -28,7 +29,8 @@ export default function Navbar() {
             <Button>Sign In</Button>
           </div>
         ) : (
-          <div className="relative">
+          <div className="relative flex gap-2 items-center">
+            <Button onClick={() => redirect("/dashboard")}>Dashboard</Button>
             <Avatar onClick={toggleDropdown}>
               <AvatarImage src={session?.user?.image} />
               <AvatarFallback>CN</AvatarFallback>
